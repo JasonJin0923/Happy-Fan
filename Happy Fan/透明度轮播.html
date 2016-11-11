@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+	<title></title>
+	<style>
+		#lunbo{
+			width:400px;
+			height:260px;
+			position:relative;
+			border:4px solid #cfc;
+		}
+		div{
+			width:400px;
+			height:260px;			
+		}
+		img{
+			width:100%;
+			height:260px;			
+			position:absolute;
+			opacity:0;
+			left:0;
+			top:0;
+		}
+		ul{
+			width:360px;
+			height:50px;
+			position:absolute;
+			left:0px;
+			top:180px;
+		}
+		ul li{
+			width:96px;
+			height:50px;
+			list-style:none;
+			border:2px solid #cfc;
+			float:left;
+			opacity:0.7;
+			margin-left:5px;
+		}
+		#li1{
+			background:url(img3/no1.png);
+			background-size:cover;
+		}
+		#li2{
+			background:url(img3/no2.png);
+			background-size:cover;
+		}
+		#li3{
+			background:url(img3/no3.png);
+			background-size:cover;
+		}
+		#toleft{
+			width:30px;
+			height:50px;
+			background:#eee;
+			opacity:0.65;
+			position:absolute;
+			top:100px;
+			left:0px;
+			text-align:center;
+			line-height:50px;
+		}
+		#toright{
+			width:30px;
+			height:50px;
+			background:#eee;
+			opacity:0.65;
+			position:absolute;
+			top:100px;
+			left:370px;
+			text-align:center;
+			line-height:50px;
+
+		}
+		a{
+			font-size:40px;
+			opacity:0.8;
+			text-decoration:none;
+		}
+
+		
+	</style>
+	<script src="artMove.js"></script>
+	<script>
+		window.onload = function(){
+			var img = document.getElementsByTagName("img");
+			var lis = document.getElementsByTagName("li");
+			var toleft = document.getElementById("toleft");
+			var toright = document.getElementById("toright");
+			var k=0;
+			var timer = setInterval(fn1,2000);
+			function fn1(){
+				k++;
+				// for(var i=0;i<img.length;i++){
+					// if(i!=k-1){
+						// img[i].style.opacity = 0;
+					// }
+				// }
+				startMove(img[k-1],{opacity:0},"",100);
+				if(k==img.length){
+					startMove(img[0],{opacity:100},"",100);
+					k=0;
+				}else{
+					startMove(img[k],{opacity:100},"",100);
+				}
+			}
+			function fn2(){
+				clearInterval(timer);
+				k++;
+				startMove(img[k-1],{opacity:0},"",100);
+				if(k==img.length){
+					startMove(img[0],{opacity:100},"",100);
+					k=0;
+				}else{
+					startMove(img[k],{opacity:100},"",100);
+				}
+				timer=setInterval(fn1,2000);
+			}			
+			function fn3(){
+				clearInterval(timer);
+				k++;//4--5
+				startMove(img[k-1],{opacity:0},"",100);//5
+				if(k==1){
+					startMove(img[2],{opacity:100},"",100);
+					k=2;
+				}else{
+					startMove(img[k-2],{opacity:100},"",100);//4
+					k=k-2;
+				}
+				timer=setInterval(fn1,2000);
+			}
+			// function fn3(){
+				// clearInterval(timer);
+				// k--;//4--3
+				// startMove(img[k+1],{opacity:0},"",100);//5
+				// if(k==-1){
+					// startMove(img[7],{opacity:100},"",100);
+					// k=7;
+				// }else{
+					// startMove(img[k],{opacity:100},"",100);//4
+				// }
+				// timer=setInterval(fn1,2000);
+			// }
+			
+			for(var j=0;j<lis.length;j++){
+				lis[j].index = j;
+				lis[j].onclick = function(){
+					clearInterval(timer);
+					startMove(img[k],{opacity:0},"",60);
+					startMove(img[this.index],{opacity:100},"",60);
+					k=this.index;
+					timer=setInterval(fn1,2000);
+				}
+			}
+			toright.onclick = fn2;
+			toleft.onclick = fn3;
+				// clearInterval(timer);
+				// startMove(img[k],{opacity:0},"",60);
+				// startMove(img[k-1],{opacity:100},"",60);
+				//k=this.index;
+				// timer=setInterval(fn1,2000);
+			
+		}
+	</script>
+
+  </head>
+  <body >
+	<div id = "lunbo">
+	  <div>
+		<img src="img3/no1.png" style="opacity:1" />
+		<img src="img3/no2.png" />
+		<img src="img3/no3.png" />
+	  </div>
+	  <!--<ul>
+		<li id="li1"></li>
+		<li id="li2"></li>
+		<li id="li3"></li>
+	  </ul>-->
+	  <div id="toleft"><a href="javascript:;">&lt;</a></div>
+	  <div id="toright"><a href="javascript:;">&gt;</a></div>
+	</div>
+	</body>
+</html>
